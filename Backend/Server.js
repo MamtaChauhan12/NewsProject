@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const storyRoutes = require("./routes/storyRoutes");
 const cors = require("cors");
+const authRoutes = require("./routes/authRoutes");
 const scrapeNews = require("./Scraper/scrapeNews");
 const app = express();
 
@@ -9,6 +10,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/api/stories", storyRoutes);
+app.use("/api/auth", authRoutes);
 
 app.get("/", (req, res) => {
   res.send("API Running");

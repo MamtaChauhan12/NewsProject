@@ -1,12 +1,17 @@
-import {Routes, Route,Link,Navigate} from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Link
+} from "react-router-dom";
 
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import Stories from "./Pages/Stories";
 
 function App() {
-//authentication chcek here 
-  const isAuthenticated = !!localStorage.getItem("token");
+
+  const isAuthenticated =
+    !!localStorage.getItem("token");
 
   return (
 
@@ -21,6 +26,7 @@ function App() {
 
         {!isAuthenticated && (
           <>
+
             <Link
               to="/login"
               style={{
@@ -40,54 +46,64 @@ function App() {
             >
               Register
             </Link>
+
           </>
         )}
 
         {isAuthenticated && (
-          <Link
-            to="/stories"
-            style={{
-              color: "white"
-            }}
-          >
-            Stories
-          </Link>
+
+          <>
+
+            <Link
+              to="/stories"
+              style={{
+                color: "white",
+                marginRight: "20px"
+              }}
+            >
+              Stories
+            </Link>
+
+            <button
+              onClick={() => {
+                localStorage.removeItem("token");
+                window.location.href = "/login";
+              }}
+              style={{
+                marginLeft: "20px",
+                padding: "5px 10px",
+                cursor: "pointer"
+              }}
+            >
+              Logout
+            </button>
+
+          </>
+
         )}
 
       </nav>
 
       <Routes>
 
-        <Route path="/" element={<Navigate to="/register" />} />
+        <Route
+          path="/"
+          element={<Register />}
+        />
 
-  
         <Route
           path="/login"
-          element={
-            isAuthenticated
-              ? <Navigate to="/stories" />
-              : <Login />
-          }
+          element={<Login />}
         />
 
-        
         <Route
           path="/register"
-          element={
-            isAuthenticated
-              ? <Navigate to="/stories" />
-              : <Register />
-          }
+          element={<Register />}
         />
 
-    
         <Route
           path="/stories"
-          element={
-            isAuthenticated
-              ? <Stories />
-              : <Navigate to="/login" />
-          }
+          element={<Stories />}
         />
 
       </Routes>

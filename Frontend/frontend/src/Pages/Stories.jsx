@@ -20,12 +20,40 @@ function Stories() {
         "http://localhost:5000/api/stories",
         {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 
       setStories(response.data);
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+
+  };
+
+  const bookmarkStory = async (storyId) => {
+
+    try {
+
+      const token = localStorage.getItem("token");
+
+      const response = await axios.post(
+        `http://localhost:5000/api/stories/${storyId}/bookmark`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      alert(response.data.message);
+
+      fetchStories();
 
     } catch (error) {
 
@@ -45,9 +73,9 @@ function Stories() {
 
       <div className="card-container">
 
-        {stories.map((story, index) => (
+        {stories.map((story) => (
 
-          <div className="card" key={index}>
+          <div className="card" key={story._id}>
 
             <h2>{story.title}</h2>
 
@@ -66,6 +94,18 @@ function Stories() {
             >
               Read Full Story
             </a>
+
+            <br />
+            <br />
+
+            <button
+              className="bookmark-btn"
+              onClick={() => bookmarkStory(story._id)}
+            >
+              {story.isBookmarked
+                ? "Remove Bookmark"
+                : "Bookmark"}
+            </button>
 
           </div>
 

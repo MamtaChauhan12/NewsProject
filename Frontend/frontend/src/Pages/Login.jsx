@@ -31,14 +31,17 @@ function Login() {
         "http://localhost:5000/api/auth/login",
         formData
       );
+
       localStorage.setItem(
         "token",
         response.data.token
       );
 
-      alert(response.data.message || "Login Successful");
+      alert(
+        response.data.message || "Login Successful"
+      );
+
       navigate("/stories");
-      window.location.reload();
 
     } catch (error) {
 

@@ -1,27 +1,36 @@
 const mongoose = require("mongoose");
 
-const storySchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true
+const storySchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+    },
+
+    url: {
+      type: String,
+    },
+
+    points: {
+      type: Number,
+    },
+
+    author: {
+      type: String,
+    },
+
+    time: {
+      type: String,
+    },
+
+    bookmarkedBy: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
   },
-
-  url: {
-    type: String
-  },
-
-  points: {
-    type: Number
-  },
-
-  author: {
-    type: String
-  },
-
-  time: {
-    type: String
-  }
-
-}, { timestamps: true });
+  { timestamps: true }
+);
 
 module.exports = mongoose.model("Story", storySchema);

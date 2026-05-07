@@ -2,24 +2,19 @@ const express = require("express");
 
 const router = express.Router();
 
-const Story = require("../Models/Story");
+const {
+  getStories,
+  toggleBookmark,
+} = require("../controllers/storyController");
 
-router.get("/", async (req, res) => {
+const authMiddleware = require("../middleware/authMiddleware");
 
-  try {
+router.get("/", getStories);
 
-    const stories = await Story.find();
-
-    res.json(stories);
-
-  } catch (error) {
-
-    res.status(500).json({
-      message: error.message
-    });
-
-  }
-
-});
+router.post(
+  "/:id/bookmark",
+  authMiddleware,
+  toggleBookmark
+);
 
 module.exports = router;

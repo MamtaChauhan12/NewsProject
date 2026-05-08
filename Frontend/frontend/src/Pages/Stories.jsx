@@ -7,7 +7,13 @@ function Stories() {
   const [stories, setStories] = useState([]);
 
   useEffect(() => {
-    fetchStories();
+
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      fetchStories();
+    }
+
   }, []);
 
   const fetchStories = async () => {
@@ -29,7 +35,7 @@ function Stories() {
 
     } catch (error) {
 
-      console.log(error);
+      console.log(error.response);
 
     }
 
@@ -53,11 +59,26 @@ function Stories() {
 
       alert(response.data.message);
 
-      fetchStories();
+      setStories((prevStories) =>
+        prevStories.map((story) =>
+          story._id === storyId
+            ? {
+                ...story,
+                isBookmarked:
+                  !story.isBookmarked,
+              }
+            : story
+        )
+      );
 
     } catch (error) {
 
-      console.log(error);
+      console.log(error.response);
+
+      alert(
+        error.response?.data?.message ||
+        "Bookmark Failed"
+      );
 
     }
 
@@ -75,16 +96,23 @@ function Stories() {
 
         {stories.map((story) => (
 
-          <div className="card" key={story._id}>
+          <div
+            className="card"
+            key={story._id}
+          >
 
             <h2>{story.title}</h2>
 
             <p>
-              <strong>Author:</strong> {story.author}
+              <strong>Author:</strong>
+              {" "}
+              {story.author}
             </p>
 
             <p>
-              <strong>Points:</strong> {story.points}
+              <strong>Points:</strong>
+              {" "}
+              {story.points}
             </p>
 
             <a
@@ -98,14 +126,27 @@ function Stories() {
             <br />
             <br />
 
-            <button
-              className="bookmark-btn"
-              onClick={() => bookmarkStory(story._id)}
-            >
-              {story.isBookmarked
-                ? "Remove Bookmark"
-                : "Bookmark"}
-            </button>
+          <button
+  className="bookmark-btn"
+  onClick={() =>
+    bookmarkStory(story._id)
+  }
+  style={{
+    backgroundColor:
+      story.isBookmarked
+        ? "red"
+        : "green",
+    color: "white",
+    border: "none",
+    padding: "10px 15px",
+    borderRadius: "5px",
+    cursor: "pointer",
+  }}
+>
+  {story.isBookmarked
+    ? "Remove Bookmark"
+    : "Bookmark"}
+</button>
 
           </div>
 

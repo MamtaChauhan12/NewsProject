@@ -23,7 +23,7 @@ function Stories() {
       const token = localStorage.getItem("token");
 
       const response = await axios.get(
-        "http://localhost:5000/api/stories",
+        "http://newsproject-knve.onrender.com/api/stories",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -48,7 +48,7 @@ function Stories() {
       const token = localStorage.getItem("token");
 
       const response = await axios.post(
-        `http://localhost:5000/api/stories/${storyId}/bookmark`,
+        `http://newsproject-knve.onrender.com/api/stories/${storyId}/bookmark`,
         {},
         {
           headers: {

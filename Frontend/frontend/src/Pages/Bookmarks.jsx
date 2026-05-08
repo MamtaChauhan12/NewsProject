@@ -17,7 +17,8 @@ function Bookmarks() {
       const token = localStorage.getItem("token");
 
       const response = await axios.get(
-        "http://localhost:5000/api/stories/bookmarks",
+        "http://newsproject-knve.onrender.com/api/stories/bookmarks",
+       
         {
           headers: {
             Authorization: `Bearer ${token}`,

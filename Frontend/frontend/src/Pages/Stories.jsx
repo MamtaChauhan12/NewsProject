@@ -115,6 +115,12 @@ function Stories() {
               {story.points}
             </p>
 
+            <p>
+              <strong>Posted Time:</strong>
+              {" "}
+              {story.time}
+            </p>
+
             <a
               href={story.url}
               target="_blank"
@@ -126,27 +132,27 @@ function Stories() {
             <br />
             <br />
 
-          <button
-  className="bookmark-btn"
-  onClick={() =>
-    bookmarkStory(story._id)
-  }
-  style={{
-    backgroundColor:
-      story.isBookmarked
-        ? "red"
-        : "green",
-    color: "white",
-    border: "none",
-    padding: "10px 15px",
-    borderRadius: "5px",
-    cursor: "pointer",
-  }}
->
-  {story.isBookmarked
-    ? "Remove Bookmark"
-    : "Bookmark"}
-</button>
+            <button
+              className="bookmark-btn"
+              onClick={() =>
+                bookmarkStory(story._id)
+              }
+              style={{
+                backgroundColor:
+                  story.isBookmarked
+                    ? "red"
+                    : "green",
+                color: "white",
+                border: "none",
+                padding: "10px 15px",
+                borderRadius: "5px",
+                cursor: "pointer",
+              }}
+            >
+              {story.isBookmarked
+                ? "Remove Bookmark"
+                : "Bookmark"}
+            </button>
 
           </div>
 

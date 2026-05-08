@@ -1,12 +1,14 @@
 import {
   Routes,
   Route,
-  Link
+  Link,
+  Navigate
 } from "react-router-dom";
 
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import Stories from "./Pages/Stories";
+import Bookmarks from "./Pages/Bookmarks";
 
 function App() {
 
@@ -64,13 +66,26 @@ function App() {
               Stories
             </Link>
 
+            <Link
+              to="/bookmarks"
+              style={{
+                color: "white",
+                marginRight: "20px"
+              }}
+            >
+              Bookmarks
+            </Link>
+
             <button
               onClick={() => {
+
                 localStorage.removeItem("token");
-                window.location.href = "/login";
+
+                window.location.href =
+                  "/login";
+
               }}
               style={{
-                marginLeft: "20px",
                 padding: "5px 10px",
                 cursor: "pointer"
               }}
@@ -88,22 +103,47 @@ function App() {
 
         <Route
           path="/"
-          element={<Register />}
+          element={
+            isAuthenticated
+              ? <Navigate to="/stories" />
+              : <Navigate to="/login" />
+          }
         />
 
         <Route
           path="/login"
-          element={<Login />}
+          element={
+            isAuthenticated
+              ? <Navigate to="/stories" />
+              : <Login />
+          }
         />
 
         <Route
           path="/register"
-          element={<Register />}
+          element={
+            isAuthenticated
+              ? <Navigate to="/stories" />
+              : <Register />
+          }
         />
 
         <Route
           path="/stories"
-          element={<Stories />}
+          element={
+            isAuthenticated
+              ? <Stories />
+              : <Navigate to="/login" />
+          }
+        />
+
+        <Route
+          path="/bookmarks"
+          element={
+            isAuthenticated
+              ? <Bookmarks />
+              : <Navigate to="/login" />
+          }
         />
 
       </Routes>

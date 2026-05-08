@@ -76,8 +76,29 @@ const toggleBookmark = async (req, res) => {
   }
 
 };
+const getBookmarkedStories = async (req, res) => {
 
+  try {
+
+    const userId = req.user.id;
+
+    const stories = await Story.find({
+      bookmarkedBy: userId,
+    });
+
+    res.json(stories);
+
+  } catch (error) {
+
+    res.status(500).json({
+      message: error.message,
+    });
+
+  }
+
+};
 module.exports = {
   getStories,
   toggleBookmark,
+  getBookmarkedStories,
 };

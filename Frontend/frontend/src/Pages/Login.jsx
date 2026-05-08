@@ -1,11 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import "./Pages.css";
 
 function Login() {
-
-  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -38,17 +35,19 @@ function Login() {
       );
 
       alert(
-        response.data.message || "Login Successful"
+        response.data.message ||
+        "Login Successful"
       );
 
-      navigate("/stories");
+      window.location.href = "/stories";
 
     } catch (error) {
 
       console.log(error);
 
       alert(
-        error.response?.data?.message || "Login Failed"
+        error.response?.data?.message ||
+        "Login Failed"
       );
 
     }
@@ -72,6 +71,7 @@ function Login() {
           placeholder="Enter Email"
           value={formData.email}
           onChange={handleChange}
+          required
         />
 
         <input
@@ -80,6 +80,7 @@ function Login() {
           placeholder="Enter Password"
           value={formData.password}
           onChange={handleChange}
+          required
         />
 
         <button type="submit">
